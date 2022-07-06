@@ -15,12 +15,6 @@ test('retrive the name of the employee', () => {
     expect(employee.getName()).toBe('Jacob');
 })
 
-test('retrive the name of the employee', () => {
-    const employee = new Employee('Jacob',1,'sample@gmail.com');
-
-    expect(employee.getName()).toBe('Jacob');
-})
-
 test('retrive the id of the employee', () => {
     const employee = new Employee('Jacob',1,'sample@gmail.com');
 
