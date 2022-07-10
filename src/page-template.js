@@ -1,3 +1,60 @@
+const generateManager = (name, id, email, officeNumber) => {
+    return `
+        <div class="card">
+            <h2>
+            <span class="oi oi-clipboard"></span> ${name}
+                <p>Manager</p>
+            </h2>
+                    
+            <div class="card-body">
+                <div id="id">ID: ${id}</div>
+                <p>Email: <a href="mailto:${email}">${email}</a></p>
+                <div>Office Number: ${officeNumber}</div>
+            </div>
+        </div>
+    `
+}
+
+const generateEmployees = employeeData => {
+    return`
+    ${employeeData.filter(({engineerName}) => engineerName)
+    .map(({engineerName, engineerId, engineerEmail, engineerGitHub}) => {
+        return `
+        <div class="card">
+            <h2>
+                ${engineerName}
+                <p>Engineer</p>
+            </h2>
+                    
+            <div class="card-body">
+                <div id="id">ID: ${engineerId}</div>
+                <p>Email: <a href="mailto:${engineerEmail}">${engineerEmail}</a></p>
+                <div>Github: <a href="${engineerGitHub}">${engineerGitHub}</a></div>
+            </div>
+        </div>
+        `
+    }).join('')}
+
+    ${employeeData.filter(({internName}) => internName)
+    .map(({internName, internId, internEmail, internSchool}) => {
+        return `
+        <div class="card">
+            <h2>
+                ${internName}
+                <p>Intern</p>
+            </h2>
+                    
+            <div class="card-body">
+                <div id="id">ID: ${internId}</div>
+                <p>Email: <a href="mailto:${internEmail}">${internEmail}</a></p>
+                <div>School: ${internSchool}</div>
+            </div>
+        </div>
+        `
+    }).join('')}
+    `
+}
+
 module.exports = managerData => {
     console.log(managerData);
 
@@ -11,7 +68,6 @@ module.exports = managerData => {
         <title>My Team</title>
         <link rel="stylesheet" href="./style.css">
     </head>
-
     
     <body>
         <header>
@@ -19,18 +75,9 @@ module.exports = managerData => {
         </header>
 
         <div class="card-container">
-            <div class="card">
-                <h2>
-                    Jacob
-                    <p>Manager</p>
-                </h2>
-                
-                <div class="card-body">
-                    <div id="id">ID: 1</div>
-                    <p>Email: <a id="email" href="mailto:jacob.hannah164@gmail.com">jacob.hannah164@gmail.com</a></p>
-                    <div id="office-number">Office Number: 12</div>
-                </div>
-            </div> 
+            ${generateManager(managerData.name, managerData.id, managerData.email, managerData.officeNumber)}
+
+            ${generateEmployees(managerData.employees)}
         </div> 
     </body>
 </html>

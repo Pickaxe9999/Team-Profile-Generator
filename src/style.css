@@ -27,6 +27,7 @@ a{
 
 .card{
     margin: 10px;
+    width: 300px;
     box-shadow: 5px 5px 10px 2px;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;

@@ -38,7 +38,7 @@ feature/class-engineer
 feature/class-intern
 feature/user-prompt
 feature/web-page-template-generation
-feature/generate-html-all-employees
+feature/generate-user-data-html
 
 Class test information
 Employee must have 

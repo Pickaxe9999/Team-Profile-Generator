@@ -89,10 +89,22 @@ const managerSample = {
             engineerGitHub: 'https://github.com/engineer'
         },
         {
+            engineerName: 'Bill',
+            engineerId: '546813',
+            engineerEmail: 'sampleEmail@gmail.com',
+            engineerGitHub: 'https://github.com/engineer2'
+        },
+        {
             internName: 'Joe',
             internId: '567890',
             internEmail: 'intern@gmail.com',
             internSchool: 'UNCC'
+        },
+        {
+            internName: 'Carl',
+            internId: '5613238',
+            internEmail: 'inter2n@gmail.com',
+            internSchool: 'UNCB'
         }
     ]
 }
