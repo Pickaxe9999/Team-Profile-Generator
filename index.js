@@ -1,5 +1,7 @@
 const inquirer = require('inquirer');
 const Manager = require('./lib/Manager.js');
+const generatePage = require('./src/page-template.js');
+const {writeFile, copyFile} = require('./utils/generate-page.js');
 
 //questions to input a manager
 const managerQuestions = [
@@ -108,7 +110,7 @@ function addEmployees(manager){
     }
 
     //prompt the user for at least one additional employee other than the manager
-    inquirer.prompt({
+    return inquirer.prompt({
             type: 'list',
             message: 'What type of employee would you like to eneter?',
             name: 'type',
@@ -146,4 +148,17 @@ function addEmployees(manager){
 }
 
 
-enterManager().then(addEmployees);
+enterManager()
+    .then(addEmployees)
+    .then(managerData => {
+        return generatePage(managerSample);
+    }).then(pageData => {
+        return writeFile(pageData);
+    }).then(writeFileResponse => {
+        console.log(writeFileResponse.message);
+        return copyFile();
+    }).then(copyFileResponse => {
+        console.log(copyFileResponse.message);
+    }).catch(err => {
+        console.log(err);
+    })
