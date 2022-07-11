@@ -7,7 +7,7 @@ const generateManager = (manager) => {
         <div class="card">
             <h2>
             <span class="oi oi-clipboard"></span> ${manager.getName()}
-                <p>Manager</p>
+                <p>${manager.getRole()}</p>
             </h2>
                     
             <div class="card-body">
@@ -21,13 +21,12 @@ const generateManager = (manager) => {
 
 //generate employee cards
 const generateEmployees = employee => {
-    console.log(employee)
     if(employee instanceof Engineer){
             return `
             <div class="card">
                 <h2>
                     ${employee.getName()}
-                    <p>Engineer</p>
+                    <p>${employee.getRole()}</p>
                 </h2>
                         
                 <div class="card-body">
@@ -42,7 +41,7 @@ const generateEmployees = employee => {
             <div class="card">
                 <h2>
                     ${employee.getName()}
-                    <p>Intern</p>
+                    <p>${employee.getRole()}</p>
                 </h2>
                         
                 <div class="card-body">
