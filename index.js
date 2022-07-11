@@ -1,5 +1,7 @@
 const inquirer = require('inquirer');
 const Manager = require('./lib/Manager.js');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
 const generatePage = require('./src/page-template.js');
 const {writeFile, copyFile} = require('./utils/generate-page.js');
 
@@ -8,22 +10,54 @@ const managerQuestions = [
     {
         type:'text',
         name: 'name',
-        message:"Please enter your manager's name: "
+        message:"Please enter your manager's name: ",
+        validate: titleInput =>{
+            if(titleInput){
+                return true;
+            }else{
+                console.log("Please enter a name!");
+                return false;
+            }
+        }
     },
     {
         type:'text',
         name: 'id',
-        message:"Please enter your manager's employee id: "
+        message:"Please enter your manager's employee id: ",
+        validate: titleInput =>{
+            if(titleInput){
+                return true;
+            }else{
+                console.log("Please enter an id!");
+                return false;
+            }
+        }
     },
     {
         type:'text',
         name: 'email',
-        message:"Please enter your manager's email: "
+        message:"Please enter your manager's email: ",
+        validate: titleInput =>{
+            if(titleInput){
+                return true;
+            }else{
+                console.log("Please enter an email!");
+                return false;
+            }
+        }
     },
     {
         type:'text',
         name: 'officeNumber',
-        message:"Please enter your manager's office number: "
+        message:"Please enter your manager's office number: ",
+        validate: titleInput =>{
+            if(titleInput){
+                return true;
+            }else{
+                console.log("Please enter an office number!");
+                return false;
+            }
+        }
     }
 ];
 
@@ -31,23 +65,55 @@ const managerQuestions = [
 const engineerQuestions = [
     {
         type:'text',
-        name: 'engineerName',
-        message:"Please enter your engineer's name: "
+        name: 'name',
+        message:"Please enter your engineer's name: ",
+        validate: titleInput =>{
+            if(titleInput){
+                return true;
+            }else{
+                console.log("Please enter a name!");
+                return false;
+            }
+        }
     },
     {
         type:'text',
-        name: 'engineerID',
-        message:"Please enter your engineer's employee id: "
+        name: 'id',
+        message:"Please enter your engineer's employee id: ",
+        validate: titleInput =>{
+            if(titleInput){
+                return true;
+            }else{
+                console.log("Please enter an id!");
+                return false;
+            }
+        }
     },
     {
         type:'text',
-        name: 'engineerEmail',
-        message:"Please enter your engineer's email: "
+        name: 'email',
+        message:"Please enter your engineer's email: ",
+        validate: titleInput =>{
+            if(titleInput){
+                return true;
+            }else{
+                console.log("Please enter an email!");
+                return false;
+            }
+        }
     },
     {
         type:'text',
-        name: 'engineerGithub',
-        message:"Please enter your engineer's github link: "
+        name: 'github',
+        message:"Please enter your engineer's github link: ",
+        validate: titleInput =>{
+            if(titleInput){
+                return true;
+            }else{
+                console.log("Please enter a github link!");
+                return false;
+            }
+        }
     }
 ];
 
@@ -55,59 +121,57 @@ const engineerQuestions = [
 const internQuestions = [
     {
         type:'text',
-        name: 'internName',
-        message:"Please enter your intern's name: "
+        name: 'name',
+        message:"Please enter your intern's name: ",
+        validate: titleInput =>{
+            if(titleInput){
+                return true;
+            }else{
+                console.log("Please enter a name!");
+                return false;
+            }
+        }
     },
     {
         type:'text',
-        name: 'internId',
-        message:"Please enter your intern's employee id: "
+        name: 'id',
+        message:"Please enter your intern's employee id: ",
+        validate: titleInput =>{
+            if(titleInput){
+                return true;
+            }else{
+                console.log("Please enter an id!");
+                return false;
+            }
+        }
     },
     {
         type:'text',
-        name: 'internEmail',
-        message:"Please enter your intern's email: "
+        name: 'email',
+        message:"Please enter your intern's email: ",
+        validate: titleInput =>{
+            if(titleInput){
+                return true;
+            }else{
+                console.log("Please enter an email!");
+                return false;
+            }
+        }
     },
     {
         type:'text',
-        name: 'internSchool',
-        message:"Please enter your intern's school: "
+        name: 'school',
+        message:"Please enter your intern's school: ",
+        validate: titleInput =>{
+            if(titleInput){
+                return true;
+            }else{
+                console.log("Please enter a school!");
+                return false;
+            }
+        }
     }
 ];
-
-//sample manager data
-const managerSample = {
-    name: 'Jacob',
-    id: '99999',
-    email: 'jacob.hannah164@gmail.com',
-    officeNumber: '56789',
-    employees: [
-        {
-            engineerName: 'Bob',
-            engineerId: '89903',
-            engineerEmail: 'sampleEmail@gmail.com',
-            engineerGitHub: 'https://github.com/engineer'
-        },
-        {
-            engineerName: 'Bill',
-            engineerId: '546813',
-            engineerEmail: 'sampleEmail@gmail.com',
-            engineerGitHub: 'https://github.com/engineer2'
-        },
-        {
-            internName: 'Joe',
-            internId: '567890',
-            internEmail: 'intern@gmail.com',
-            internSchool: 'UNCC'
-        },
-        {
-            internName: 'Carl',
-            internId: '5613238',
-            internEmail: 'inter2n@gmail.com',
-            internSchool: 'UNCB'
-        }
-    ]
-}
 
 //ask the user for the manager
 function enterManager(){
@@ -115,12 +179,7 @@ function enterManager(){
 }
 
 //ask the user for employees
-function addEmployees(manager){
-    //if the manager has no employees then add an attribute to manager to add them
-    if(!manager.employees){
-        manager.employees =[];
-    }
-
+function enterEmployees(employees){
     //prompt the user for at least one additional employee other than the manager
     return inquirer.prompt({
             type: 'list',
@@ -140,7 +199,13 @@ function addEmployees(manager){
 
     //ask the user if they would like to keep entering employees
     .then(employee => {
-        manager.employees.push(employee);
+        if(employee.github){
+            const engineer = new Engineer(employee.name, employee.id, employee.email, employee.github);
+            employees.push(engineer);
+        }else{
+            const intern = new Intern(employee.name, employee.id, employee.email, employee.school);
+            employees.push(intern);
+        }
         return inquirer.prompt({
             type: 'confirm',
             message: 'Would you like to enter another employee?',
@@ -151,26 +216,31 @@ function addEmployees(manager){
 
     .then(({choice}) => {
         if(choice === true){
-            return addEmployees(manager);
+            return enterEmployees(employees);
         }else{
-            console.log(manager);
-            return manager;
+            return employees;
         }
     })
 }
 
-
-enterManager()
-    .then(addEmployees)
-    .then(managerData => {
-        return generatePage(managerSample);
-    }).then(pageData => {
+//program execution when node index.js is invoked via terminal
+enterManager().then(managerInfo => {
+    let manager = new Manager(managerInfo.name, managerInfo.id, managerInfo.email, managerInfo.officeNumber);
+    let employees = [manager];
+    return employees;
+})
+    .then(employees => {
+        return enterEmployees(employees);
+    })
+    .then(employees => {
+         return generatePage(employees);
+     }).then(pageData => {
         return writeFile(pageData);
     }).then(writeFileResponse => {
-        console.log(writeFileResponse.message);
-        return copyFile();
+         console.log(writeFileResponse.message);
+         return copyFile();
     }).then(copyFileResponse => {
-        console.log(copyFileResponse.message);
+         console.log(copyFileResponse.message);
     }).catch(err => {
-        console.log(err);
+         console.log(err);
     })

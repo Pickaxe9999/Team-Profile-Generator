@@ -1,63 +1,62 @@
-const generateManager = (name, id, email, officeNumber) => {
+const Engineer = require('../lib/Engineer.js')
+const Intern = require('../lib/Intern.js')
+
+//generate the manager card
+const generateManager = (manager) => {
     return `
         <div class="card">
             <h2>
-            <span class="oi oi-clipboard"></span> ${name}
+            <span class="oi oi-clipboard"></span> ${manager.getName()}
                 <p>Manager</p>
             </h2>
                     
             <div class="card-body">
-                <div id="id">ID: ${id}</div>
-                <p>Email: <a href="mailto:${email}">${email}</a></p>
-                <div>Office Number: ${officeNumber}</div>
+                <div id="id">ID: ${manager.getId()}</div>
+                <p>Email: <a href="mailto:${manager.getEmail()}">${manager.getEmail()}</a></p>
+                <div>Office Number: ${manager.getOfficeNumber()}</div>
             </div>
         </div>
     `
 }
 
-const generateEmployees = employeeData => {
-    return`
-    ${employeeData.filter(({engineerName}) => engineerName)
-    .map(({engineerName, engineerId, engineerEmail, engineerGitHub}) => {
-        return `
-        <div class="card">
-            <h2>
-                ${engineerName}
-                <p>Engineer</p>
-            </h2>
-                    
-            <div class="card-body">
-                <div id="id">ID: ${engineerId}</div>
-                <p>Email: <a href="mailto:${engineerEmail}">${engineerEmail}</a></p>
-                <div>Github: <a href="${engineerGitHub}">${engineerGitHub}</a></div>
+//generate employee cards
+const generateEmployees = employee => {
+    console.log(employee)
+    if(employee instanceof Engineer){
+            return `
+            <div class="card">
+                <h2>
+                    ${employee.getName()}
+                    <p>Engineer</p>
+                </h2>
+                        
+                <div class="card-body">
+                    <div id="id">ID: ${employee.getId()}</div>
+                    <p>Email: <a href="mailto:${employee.getEmail()}">${employee.getEmail()}</a></p>
+                    <div>Github: <a href="${employee.getGithub()}">${employee.getGithub()}</a></div>
+                </div>
             </div>
-        </div>
-        `
-    }).join('')}
-
-    ${employeeData.filter(({internName}) => internName)
-    .map(({internName, internId, internEmail, internSchool}) => {
+            `
+    }else{
         return `
-        <div class="card">
-            <h2>
-                ${internName}
-                <p>Intern</p>
-            </h2>
-                    
-            <div class="card-body">
-                <div id="id">ID: ${internId}</div>
-                <p>Email: <a href="mailto:${internEmail}">${internEmail}</a></p>
-                <div>School: ${internSchool}</div>
+            <div class="card">
+                <h2>
+                    ${employee.getName()}
+                    <p>Intern</p>
+                </h2>
+                        
+                <div class="card-body">
+                    <div id="id">ID: ${employee.getId()}</div>
+                    <p>Email: <a href="mailto:${employee.getEmail()}">${employee.getEmail()}</a></p>
+                    <div>School: <a href="${employee.getSchool()}">${employee.getSchool()}</a></div>
+                </div>
             </div>
-        </div>
-        `
-    }).join('')}
-    `
+            `
+    }
 }
 
-module.exports = managerData => {
-    console.log(managerData);
-
+//returns the html string literal for file data
+module.exports = employees => {
     return`
 <!DOCTYPE html>
 <html lang="en">
@@ -75,9 +74,9 @@ module.exports = managerData => {
         </header>
 
         <div class="card-container">
-            ${generateManager(managerData.name, managerData.id, managerData.email, managerData.officeNumber)}
+            ${generateManager(employees[0])}
 
-            ${generateEmployees(managerData.employees)}
+            ${employees.slice(1).map(employee => generateEmployees(employee)).join('')}
         </div> 
     </body>
 </html>

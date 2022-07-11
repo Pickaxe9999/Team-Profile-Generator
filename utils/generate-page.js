@@ -1,5 +1,6 @@
 const fs = require('fs');
 
+//create the html file in the dist folder
 const writeFile = fileContent => {
     return new Promise((resolve, reject) => {
         fs.writeFile('./dist/index.html', fileContent, err => {
@@ -18,6 +19,7 @@ const writeFile = fileContent => {
     });
 };
 
+//copy the css file for styling the html in the dist folder
 const copyFile = () => {
     return new Promise((resolve, reject) => {
         fs.copyFile('./src/style.css', './dist/style.css', err =>{
